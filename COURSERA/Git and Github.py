@@ -142,9 +142,10 @@ $ git merge [branch]
 
 $ cd c:\github
 $ git init
-# Now add ALL the files under c:\github
+# Now add ALL the files under c:\github. This will include the README
 $ git add .
 $ git commit -m "Duplicating my local repo"
+$ git branch -M main
 # now link to remote "study" repo
 # unlink any existin remote repo with 
 $ git remote remove origin
@@ -153,3 +154,19 @@ $ git remote -v  # to check
 $ git remote add origin https://github.com/tuchung23/study.git
 # now push ALL committed files to remote github
 $ git push -u origin master
+## The above steps 100% work to create a blank GITHUB repo of my local git
+# 
+###############################
+# Now to sync it to my macbook air, we need to pull it down
+#  
+############################### 
+
+$ cd Github   # on macbook
+$ git clone https://github.com/tuchung23/study.git
+
+
+
+
+
+
+
