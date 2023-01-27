@@ -1,0 +1,5 @@
+GOOGLE CLOUD PROFESSIONAL DATA ENGINEER exam
+
+https://confluence.iag.com.au/display/CCA/GCP+%27Professional+Data+Engineer%27+Path
+
+https://cloud.google.com/certification/guides/data-engineer
