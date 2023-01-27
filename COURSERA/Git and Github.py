@@ -163,6 +163,10 @@ $ git push -u origin master
 
 $ cd Github   # on macbook
 $ git clone https://github.com/tuchung23/study.git
+# make changes on github directly or pushed from work laptop
+# then just issue the git pull command to sync local to remote
+$ git pull
+# Visual source code will automatically update on MAC
 
 
 
