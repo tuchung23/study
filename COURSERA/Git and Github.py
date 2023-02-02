@@ -180,7 +180,14 @@ $ git pull
 # Then confirm pull request from main <- new_branch
 # git branch -d new_branch
 
-
+##################
+# 2/2/23 - Updating the Git file from the main branch (not creating a new one)
+#
+##################
+# $ git add Git\ and\ Github.py
+# $ git commit -m "updated Git file"
+# $ git push -u origin main   
+# running this from the main local branch
 
 
 
