@@ -153,7 +153,7 @@ $ git remote -v  # to check
 # note that we are calling the remote repo "origin"
 $ git remote add origin https://github.com/tuchung23/study.git
 # now push ALL committed files to remote github
-$ git push -u origin master
+$ git push -u origin master     # or main. Depending on if you do it from the main branch or from a new branch
 ## The above steps 100% work to create a blank GITHUB repo of my local git
 # 
 ###############################
