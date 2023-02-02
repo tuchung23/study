@@ -187,7 +187,7 @@ $ git pull
 # $ git add Git\ and\ Github.py
 # $ git commit -m "updated Git file"
 # $ git push -u origin main   
-# running this from the main local branch
+# running this from the main local branch. As not a new branch, Pull Request not required
 
 
 
