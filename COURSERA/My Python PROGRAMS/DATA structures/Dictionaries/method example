@@ -1,0 +1,6 @@
+class C:
+    def my_method(self):
+        print "I am a C"
+
+c = C()
+c.my_method()

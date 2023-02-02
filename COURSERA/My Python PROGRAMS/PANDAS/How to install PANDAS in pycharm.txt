@@ -1,0 +1,10 @@
+Go to file-> settings
+
+Look for MY PYTHON PROGRAMS virtual env
+
+Click into Interpreter
+
+Hit the + button to see all the pacakages
+(works if i disconnect from iag cisco else packages fail to load)
+
+Search for PANDAS and install
