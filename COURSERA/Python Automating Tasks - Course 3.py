@@ -83,7 +83,14 @@ print(lines)
 # use 'a' mode to append
 # use 'r+' mode to read and write
 # if files doesnt exist, it will be created
-# if it does exist, it will be overwritten
+# if it does exist, it will be overwritten as soon as the file is opened
+
+
+
+
+
+
+
 
 
 
