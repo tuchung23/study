@@ -158,7 +158,7 @@ $ git push -u origin master
 # 
 ###############################
 # Now to sync it to my macbook air, we need to pull it down
-#  
+#   
 ############################### 
 
 $ cd Github   # on macbook
@@ -167,6 +167,18 @@ $ git clone https://github.com/tuchung23/study.git
 # then just issue the git pull command to sync local to remote
 $ git pull
 # Visual source code will automatically update on MAC
+
+
+##################
+# 2/2/23 - Wanting to add a new local folder "MY PYTHON PROGRAMS"
+#
+##################
+# $ git branch -M new_branch
+# $ git add .
+# $ git commit -m "My local python files"
+# $ git push -u origin new_branch
+# Then confirm pull request from main <- new_branch
+# git branch -d new_branch
 
 
 
