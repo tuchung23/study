@@ -79,7 +79,7 @@ lines.sort()
 print(lines)
 
 ## Writing to files########
-# use 'w' mode to wwrite
+# use 'w' mode to write
 # use 'a' mode to append
 # use 'r+' mode to read and write
 # if files doesnt exist, it will be created
@@ -196,3 +196,159 @@ with open("c:\\temp\\guests.txt","r") as guests:
 
 
 # We can see that Bob is checked in while Andrea is not.  Nice work! You've learned the basics of reading and writing files in Python!
+
+
+###########################
+# Working with files
+# moving, deleting, renaming files etc
+############################
+
+## files
+import os
+# os.remove("c:\\temp\\guests.txt")
+# os.rename(old,new)
+# os.path.exists(file)   ; check if file exists and returns true or false
+# os.path.getsize(file)  ; get file size
+# os.path.getmtime(file)     ; file last modified
+# os.path.abspath(file)    ; returns absolute path
+
+
+## directories
+# os.getcwd()     current working directory
+# os.mkdir("new_dir")
+# os.rmdir("dir")    remove empty directory only
+# os.listdir()    list folder contents
+# os.chdir("new_dir")     ; change directory
+
+# check the contents of the website directory
+# whether directory or file
+
+# dir = "website"
+# for name in os.listdir(dir):
+#    fullname=os.path.join(dir,name)
+#    # By using os.path.join we can concatenate directories in a way that can be used with other os.path() functions.
+#    if os.path.isdir(fullname):
+#        print("{} is a directory".format(fullname))
+#    else:
+#        print("{} is a file".format(fullname))
+
+
+# The create_python_script function creates a new python script in the current working directory, 
+# adds the line of comments to it declared  by the 'comments' variable, and returns the size of the new file. 
+# Fill in the gaps to create a script called "program.py".
+
+
+def create_python_script(filename):
+  comments = "# Start of a new Python program"
+  with open(filename, 'w') as file:
+    file.write(comments)
+    filesize = os.path.getsize(filename)
+  return(filesize)
+
+print(create_python_script("c:\\temp\\program.py"))
+
+
+#######################################################
+# Question 2
+# The new_directory function creates a new directory inside the current working directory, then creates a new empty file inside the new directory, 
+# and returns the list of files in that directory. Fill in the gaps to create a file "script.py" in the directory "PythonPrograms". 
+
+
+import os
+
+def new_directory(directory, filename):
+  # Before creating a new directory, check to see if it already exists
+  # this lists it in the current directory you run the python script from
+  if os.path.isdir(directory) == False:
+    os.mkdir(directory)
+    
+  # Create the new file inside of the new directory
+  os.chdir(directory)
+  
+  # now create a new empty file inside the new directory
+  with open (filename, "w") as file:
+    file.write(filename)
+    #pass
+  
+  # Return the list of files in the new directory in a LIST
+  return os.listdir()
+
+print(new_directory("PythonPrograms", "script.py"))
+
+
+#####################################################################
+# Question 3
+# The parent_directory function returns the name of the directory that's located just above the current working directory. 
+# Remember that '..' is a relative path alias that means "go up to the parent directory". Fill in the gaps to complete this function.
+
+# example
+# directory = '/path/to/dir'
+# filename = 'example.txt'
+# file_path = os.path.join(directory, filename)
+# RETURNS:  /path/to/dir/example.txt
+
+
+current_dir = os.getcwd()
+# os.path.dirname returns the directory name of pathname path , essentially the parent
+parent_dir = os.path.dirname(current_dir)
+
+
+os.chdir("C:\\github\\coursera")
+import os
+def parent_directory():
+  # Create a relative path to the parent 
+  # of the current working directory 
+
+
+    # os.path.join(path1, path2...)
+    #
+    relative_parent = os.path.join(os.getcwd() , os.pardir)
+    print(relative_parent)
+
+
+  # Return the absolute path of the parent directory
+    return os.path.abspath(relative_parent)
+
+print(parent_directory())
+
+
+#####################################################################
+# Question 4
+#
+######################################################################
+# The file_date function creates a new file in the current working directory, checks the date that the file was modified, 
+# and returns just the date portion of the timestamp in the format of yyyy-mm-dd. Fill in the gaps to create a file 
+# called "newfile.txt" and check the date that it was modified.
+
+import os
+import datetime
+
+def file_date(filename):
+  # Create the file in the current directory
+
+  #basic create blank file
+  with open(filename, "w") as file:
+    file.write("hello")
+
+
+  timestamp = os.path.getmtime(filename)
+  # Convert the timestamp into a readable format, then into a string
+  readable_time = datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d')
+  # Return just the date portion 
+  # Hint: how many characters are in “yyyy-mm-dd”? 
+  return ("{}".format(readable_time))
+
+print(file_date("newfile.txt")) 
+# Should be today's date in the format of yyyy-mm-dd
+
+
+
+
+
+
+
+
+
+
+
+
