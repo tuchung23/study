@@ -104,101 +104,88 @@ print(lines)
 # exit prompt by CTRL-Z plus enter
 
 
-guests = open("c:\temp\guests.txt", "w")
+
+# \\ to preserve character
+guests = open("c:\\temp\\guests.txt", "w")
+# this creates a new file if not exists
 initial_guests = ["Bob", "Andrea", "Manuel", "Polly", "Khalid"]
 
+# iterate the list and enter one name per line
 for i in initial_guests:
     guests.write(i + "\n")
     
 guests.close()
 
+## this returns
+# Bob
+# Andrea
+# Manuel
+# Polly
+# Khalid
 
-# No output is generated for the above code cell.  To check the contents of the newly created *guests.txt* file, run the following code.
-
-
-with open("guests.txt") as guests:
+# grab contents of the file and print to stdout
+with open("c:\\temp\\guests.txt") as guests:
     for line in guests:
         print(line)
 
 
-# The output shows that our *guests.txt* file is correctly populated with each initial guest's first name on its own line.  Cool!
-# <br><br>
+
 # Now suppose we want to update our file as guests check in and out.  Fill in the missing code in the following cell to add guests to the *guests.txt* file as they check in.
 
-# In[27]:
-
-
+# define the list of new guests
 new_guests = ["Sam", "Danielle", "Jacob"]
 
-with open("guests.txt", 'a') as guests:
+# we want to append whats already there, so use 'a' descriptor
+with open("c:\\temp\\guests.txt", 'a') as guests:
     for i in new_guests:
         guests.write(i + "\n")
 
 guests.close()
 
 
-# To check whether your code correctly added the new guests to the *guests.txt* file, run the following cell.
-
-# In[28]:
-
-
-with open("guests.txt") as guests:
+# now output file contents to stdout
+with open("c:\\temp\\guests.txt") as guests:
     for line in guests:
         print(line)
 
 
-# The current names in the *guests.txt* file should be:  Bob, Andrea, Manuel, Polly, Khalid, Sam, Danielle and Jacob.
-# <br><br>
-# Was the *guests.txt* file correctly appended with the new guests? If not, go back and edit your code making sure to fill in the gaps appropriately so that the new guests are correctly added to the *guests.txt* file.  Once the new guests are successfully added, you have filled in the missing code correctly.  Great!
-# <br><br>
 # Now let's remove the guests that have checked out already.  There are several ways to do this, however, the method we will choose for this exercise is outlined as follows:
 # 1. Open the file in "read" mode.
 # 2. Iterate over each line in the file and put each guest's name into a Python list.
 # 3. Open the file once again in "write" mode.
 # 4. Add each guest's name in the Python list to the file one by one.
-# 
-# <br>
-# Ready? Fill in the missing code in the following cell to remove the guests that have checked out already.
-
-# In[29]:
-
 
 checked_out=["Andrea", "Manuel", "Khalid"]
 temp_list=[]
 
-with open("guests.txt", 'r') as guests:
+with open("c:\\temp\\guests.txt", 'r') as guests:
     for g in guests:
         temp_list.append(g.strip())
 
-with open("guests.txt", 'w') as guests:
+# remove the users from the checked_out list
+with open("c:\\temp\\guests.txt", 'w') as guests:
     for name in temp_list:
+        # this compares 2 lists to each other
         if name not in checked_out:
             guests.write(name + "\n")
 
 
-# To check whether your code correctly removed the checked out guests from the *guests.txt* file, run the following cell.
 
-# In[30]:
-
-
-with open("guests.txt") as guests:
+with open("c:\\temp\\guests.txt") as guests:
     for line in guests:
         print(line)
 
 
 # The current names in the *guests.txt* file should be:  Bob, Polly, Sam, Danielle and Jacob.
-# <br><br>
-# Were the names of the checked out guests correctly removed from the *guests.txt* file? If not, go back and edit your code making sure to fill in the gaps appropriately so that the checked out guests are correctly removed from the *guests.txt* file. Once the checked out guests are successfully removed, you have filled in the missing code correctly. Awesome!
-# <br><br>
-# Now let's check whether Bob and Andrea are still checked in.  How could we do this? We'll just read through each line in the file to see if their name is in there.  Run the following code to check whether Bob and Andrea are still checked in.
 
-# In[31]:
-
+# Now let's check whether Bob and Andrea are still checked in.  
+# How could we do this? We'll just read through each line in the file to see if their name is in there.  
+# Run the following code to check whether Bob and Andrea are still checked in.
 
 guests_to_check = ['Bob', 'Andrea']
 checked_in = []
 
-with open("guests.txt","r") as guests:
+with open("c:\\temp\\guests.txt","r") as guests:
     for g in guests:
         checked_in.append(g.strip())
     for check in guests_to_check:
@@ -209,24 +196,3 @@ with open("guests.txt","r") as guests:
 
 
 # We can see that Bob is checked in while Andrea is not.  Nice work! You've learned the basics of reading and writing files in Python!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
