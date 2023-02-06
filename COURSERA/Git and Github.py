@@ -194,7 +194,7 @@ $ git pull
 
 #######################################
 # Scenario: 
-# If github has a change and local git has a change
+# If github has a change and local git has a COMMITTED change
 # A "git pull" will result in a MERGE CONFLICT
 #
 # A prompt will allow you to choose which version to accept or both
