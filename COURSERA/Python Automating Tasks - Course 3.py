@@ -343,6 +343,180 @@ print(file_date("newfile.txt"))
 
 
 
+############################################
+# CSV files
+# 
+# use "csv" module to parse the files
+############################################
+# csv.read -> Reading files with csv  
+# csv.DictReader -> Reading csv files into a dictionary
+#
+# csv.writer  -> define object
+# csv.writerow -> write output
+# csv.DictWrite  -> write from a dictionary
+
+import csv
+
+############
+# CSV writer() example
+#
+############
+# Example - Define the data to be written to the CSV file from lists
+data = [["Name", "Age", "City"],
+        ["John Doe", "32", "New York"],
+        ["Jane Doe", "35", "London"]]
+
+# Open the file for writing
+with open("c:\\temp\\example.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+
+    # Write the data to the file
+    writer.writerows(data)
+
+
+###################
+# csv reader() example
+#
+##################
+# The reader() function of the CSV module will interpret the file as a CSV.
+# Open the file for reading
+with open("c:\\temp\\example.csv", "r") as file:
+    reader = csv.reader(file)
+
+    # Read and print the data from the file
+    for row in reader:
+        print(row)
+
+
+######################
+# Read and write into dictionaries
+######################
+
+# DictReader() allows us to convert the data in a CSV file into a standard dictionary. 
+# DictWriter() allows us to write data from a dictionary into a CSV file.
+# The fieldnames parameter of DictWriter() requires a list of keys
+# as this will help DictWriter() organize the CSV rows properly
+
+# Here's an example of how to use the csv.DictReader class in Python to read a CSV file into a list of dictionaries:
+
+with open('c:\\temp\\example.csv', 'r') as file:
+    reader = csv.DictReader(file)
+    data = list(reader)
+
+print(data)
+
+# this returns
+# [{'Name': 'John Doe', 'Age': '32', 'City': 'New York'}, {'Name': 'Jane Doe', 'Age': '35', 'City': 'London'}]
+
+
+######################################
+# Practice quiz
+#
+#
+######################################
+# We're working with a list of flowers and some information about each one. The create_file function writes this information to a CSV file. 
+# The contents_of_file function reads this file into records and returns the information in a nicely formatted block. 
+# Fill in the gaps of the contents_of_file function to turn the data in the CSV file into a dictionary using DictReader
+print("PRACTICE QUIZ - Question 1!!!!!\n\n")
+
+import os
+import csv
+
+# Create a file with data in it
+def create_file(filename):
+  with open(filename, "w") as file:
+    file.write("name,color,type\n")
+    file.write("carnation,pink,annual\n")
+    file.write("daffodil,yellow,perennial\n")
+    file.write("iris,blue,perennial\n")
+    file.write("poinsettia,red,perennial\n")
+    file.write("sunflower,yellow,annual\n")
+
+
+# Read the file contents and format the information about each row
+def contents_of_file(filename):
+  #initialise  
+  return_string = ""
+
+  # Call the function to create the file 
+  create_file(filename)
+
+# Open the file
+  with open('c:\\temp\\flowers.csv', 'r') as file:
+
+    # Read the rows of the file into a dictionary
+    reader = csv.DictReader(file)
+
+    # The list function is used to convert an iterable object, in this case the reader object, into a list.
+    # this creates 5 dictionaries. One line equals a dictionary
+    data = list(reader)  
+
+    # data looks like
+    # [{'name': 'carnation', 'color': 'pink', 'type': 'annual'}, 
+    # {'name': 'daffodil', 'color': 'yellow', 'type': 'perennial'}, 
+    # {'name': 'iris', 'color': 'blue', 'type': 'perennial'}, 
+    # {'name': 'poinsettia', 'color': 'red', 'type': 'perennial'}, 
+    # {'name': 'sunflower', 'color': 'yellow', 'type': 'annual'}]
+
+
+    # Process each item of the dictionary
+    for row in data:
+        return_string += "a {} {} is {}\n".format(row["color"], row["name"], row["type"])
+
+    #print(data)
+   
+    
+    return return_string
+    
+ #Call the function
+print(contents_of_file("c:\\temp\\flowers.csv"))
+
+
+######################################
+# Practice quiz
+#
+#
+######################################
+# Using the CSV file of flowers again, fill in the gaps of the contents_of_file function to process the data without turning it into a dictionary. 
+# How do you skip over the header record with the field names?
+print("PRACTICE QUIZ - Question 2!!!!!\n\n")
+
+# Create a file with data in it
+def create_file(filename):
+  with open(filename, "w") as file:
+    file.write("name,color,type\n")
+    file.write("carnation,pink,annual\n")
+    file.write("daffodil,yellow,perennial\n")
+    file.write("iris,blue,perennial\n")
+    file.write("poinsettia,red,perennial\n")
+    file.write("sunflower,yellow,annual\n")
+
+# Read the file contents and format the information about each row
+def contents_of_file(filename):
+  return_string = ""
+
+  # Call the function to create the file 
+  create_file(filename)
+
+  # Open the file
+  ___
+    # Read the rows of the file
+    rows = ___
+    # Process each row
+    for row in rows:
+      ___ = row
+      # Format the return string for data rows only
+
+          return_string += "a {} {} is {}\n".format(___)
+  return return_string
+
+#Call the function
+print(contents_of_file("flowers.csv"))
+
+
+
+
+
 
 
 
