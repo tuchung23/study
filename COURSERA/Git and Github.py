@@ -193,7 +193,7 @@ $ git pull
 
 
 #######################################
-# Scenario: 
+# 7/2/23 Scenario: 
 # If github has a change and local git has a COMMITTED change
 # A "git pull" will result in a MERGE CONFLICT
 #
@@ -203,3 +203,22 @@ $ git pull
 # The github change will appear in the local file
 # 
 ########################################
+
+
+#######################################
+# 8/2/23 Scenario: 
+# Should I do github changes from a branch or main?
+#
+# $ git add Git\ and\ Github.py
+# $ git commit -m "updating Giithub"
+# $ git push -u origin new_branch
+# $ git checkout main
+# $ git branch -d new_branch
+#
+# This will ask for a PR to be created to merge main <- new_branch
+#
+# ELSE
+#
+# Do it from the main branch
+########################################
+
