@@ -499,19 +499,39 @@ def contents_of_file(filename):
   create_file(filename)
 
   # Open the file
-  ___
-    # Read the rows of the file
-    rows = ___
-    # Process each row
-    for row in rows:
-      ___ = row
+  with open('c:\\temp\\flowers.csv', 'r') as file:
+
+    # Read the rows of the file into a LIST
+    # each row is 1 string in the LIST
+    # ['name,color,type\n', 'carnation,pink,annual\n', 'daffodil,yellow,perennial\n', 'iris,blue,perennial\n', 'poinsettia,red,perennial\n', 'sunflower,yellow,annual\n']
+    rows = file.readlines()
+
+
+    # Process each row, but starting at the second line
+    # We can skip the header by using line[1:] to bypass the first row
+    for row in rows[1:]:
+        
+
+      ########
+      #  useful to splt and remove newlines
+      # ######  
+      # eg. 'carnation,pink,annual\n'
+      # split the string by ","
+      word = row.rstrip().split(",")
+
+     
       # Format the return string for data rows only
 
-          return_string += "a {} {} is {}\n".format(___)
+
+
+
+      return_string += "a {} {} is {}\n".format(word[1], word[0], word[2])
+     
+
   return return_string
 
 #Call the function
-print(contents_of_file("flowers.csv"))
+print(contents_of_file("c:\\temp\\flowers.csv"))
 
 
 
