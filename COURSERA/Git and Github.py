@@ -198,4 +198,8 @@ $ git pull
 # A "git pull" will result in a MERGE CONFLICT
 #
 # A prompt will allow you to choose which version to accept or both
+#
+# If a github has a change and a local git has NOT COMMITTED
+# The github change will appear in the local file
+# 
 ########################################
