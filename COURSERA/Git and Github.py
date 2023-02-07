@@ -203,3 +203,18 @@ $ git pull
 # The github change will appear in the local file
 # 
 ########################################
+
+
+###########################################
+# 8/2/23
+# Should I create my commits from a branch?
+#  $ git branch -M new_branch
+#  $ git add Git\ and\ Github.py
+#  $ git commit -m "updating Giithub"
+#  $ git push -u origin new_branch
+#  GITHUB will ask you to create a PR to merge main <- new_branch
+#
+# ELSE
+# If i just commit from the main branch , there is no need for a PR
+#
+#
