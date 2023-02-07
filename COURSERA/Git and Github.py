@@ -193,7 +193,7 @@ $ git pull
 
 
 #######################################
-# Scenario: 
+# 7/2/23 - Scenario: 
 # If github has a change and local git has a COMMITTED change
 # A "git pull" will result in a MERGE CONFLICT
 #
