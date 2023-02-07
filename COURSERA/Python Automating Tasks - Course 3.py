@@ -522,9 +522,6 @@ def contents_of_file(filename):
      
       # Format the return string for data rows only
 
-
-
-
       return_string += "a {} {} is {}\n".format(word[1], word[0], word[2])
      
 
