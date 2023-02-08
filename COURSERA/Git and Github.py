@@ -229,11 +229,19 @@ $ git pull
 # major or more risky changes should use a branch
 # 
 # ######################################## 
-# GIT FLOW:
+# GIT FLOW using branches:
 # create the new branch
 # edit the file
 # commit the file
 # push it up for a PR
+#
+##########################################
+# GIT Checkout will see the file in question with and without the new contents
+#
+# if i am on the newer_branch , I will see the additional edited changes
+# if i "git checkout main" back to main branch, the additional text will disappear
+# so the file essentially shows its non edited state 
+# thats why switching between branches, it will remind you to commit first
 ##########################################
 
 
