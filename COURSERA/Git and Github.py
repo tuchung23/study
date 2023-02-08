@@ -260,19 +260,25 @@ $ git pull
 #
 ########################################
 # My MERGE philosiphy:
+# "WE SHOULD PROTECT ORIGIN AND MAIN AS THE PRODUCTION SOURCE OF TRUTH"
+# "PULL DIRECTLY FROM ORIGIN TO MAIN using "git pull" to sync"
+# "BUT updates should be done via branches"
+# 
 # Since I am working on this myself and not in collaboration with others
-# Just making the changes in main and pushing to origin is usually sufficient
+# Sometimes feeling making the change from main is usually sufficient
 #
 # small and low risk changes can use the main branch
 # major or more risky changes should use a branch
 # 
+# HOWEVER , "LETS GET USED TO BRANCHING IN ORDER TO PROTECT MAIN"
 # ######################################## 
 # GIT FLOW using branches ( branches offer change security):
-# create the new branch
-# edit the file
-# commit the file
-# push it up for a PR
+# 1) create the new branch
+# 2) edit the file
+# 3) commit the file
+# 4) push it up for a PR
 #
+# you can toggle between main and new_branch and see the additional stuff in and removed
 ##########################################
 # GIT Checkout will see the file in question with and without the new contents
 #
