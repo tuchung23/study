@@ -221,4 +221,12 @@ $ git pull
 #
 # Do it from the main branch
 ########################################
+# My MERGE philosiphy:
+# Since I am working on this myself and not in collaboration with others
+# Just making the changes in main and pushing to origin is more than sufficient
+#
+# small and low risk changes can use the main branch
+# major or more risky changes should use a branch
+# 
+# ######################################## 
 
