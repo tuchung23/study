@@ -245,3 +245,50 @@ $ git pull
 ##########################################
 
 
+###########################################
+# 8/2/23
+# Should I create my commits from a branch?
+#  $ git branch -M new_branch
+#  $ git add Git\ and\ Github.py
+#  $ git commit -m "updating Giithub"
+#  $ git push -u origin new_branch
+#  GITHUB will ask you to create a PR to merge main <- new_branch
+#
+# ELSE
+# If i just commit from the main branch , there is no need for a PR
+#
+#
+########################################
+# My MERGE philosiphy:
+# Since I am working on this myself and not in collaboration with others
+# Just making the changes in main and pushing to origin is usually sufficient
+#
+# small and low risk changes can use the main branch
+# major or more risky changes should use a branch
+# 
+# ######################################## 
+# GIT FLOW using branches ( branches offer change security):
+# create the new branch
+# edit the file
+# commit the file
+# push it up for a PR
+#
+##########################################
+# GIT Checkout will see the file in question with and without the new contents
+#
+# if i am on the newer_branch , I will see the additional edited changes
+# if i "git checkout main" back to main branch, the additional text will disappear
+# so the file essentially shows its non edited state 
+# thats why switching between branches, it will remind you to commit first
+##########################################
+# Let's say I am working in a branch
+# I edit my file and attempt to push it to remote origin but get the error 
+# >> hint: Updates were rejected because the tip of your current branch is behind
+# >>hint: its remote counterpart. Integrate the remote changes (e.g.
+# >>hint: 'git pull ...') before pushing again.
+# >> hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+#
+# To keep the main branch safe of changes thus far
+# I can use "git pull origin new_branch"  to pull changes to the branch only
+# it will ask me about wanting to merge
+############################################
