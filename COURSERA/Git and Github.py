@@ -229,4 +229,11 @@ $ git pull
 # major or more risky changes should use a branch
 # 
 # ######################################## 
+# GIT FLOW:
+# create the new branch
+# edit the file
+# commit the file
+# push it up for a PR
+##########################################
+
 
