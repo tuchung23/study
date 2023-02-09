@@ -2,7 +2,7 @@
 #########################
 # This is a python script to consolidate all
 # users into email format for a folder of csv
-# files
+# files and send output to a file
 #########################
 
 
@@ -48,6 +48,8 @@ for file_name in os.listdir(folder_path):
 
 
 """
+Decided NOT to use pandas
+
 import pandas as pd
 
 df = pd.read_csv("c:\\Temp\\AD\\ACCUM_PROD.csv")
