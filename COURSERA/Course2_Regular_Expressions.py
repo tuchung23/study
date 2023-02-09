@@ -108,7 +108,7 @@ print("Practice Question 1")
 import re
 def check_web_address(text):
 
-  # canot contain non alph numeric chars   
+  # cannot contain non alph numeric chars   
   # must end in .com , .info , .edu , .org   
   pattern = ___
   result = re.search(pattern, text)
@@ -119,4 +119,6 @@ print(check_web_address("www@google")) # False
 print(check_web_address("www.Coursera.org")) # True
 print(check_web_address("web-address.com/homepage")) # False
 print(check_web_address("My_Favorite-Blog.US")) # True
+
+8:13
 
