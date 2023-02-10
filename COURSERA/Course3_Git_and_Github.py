@@ -173,7 +173,7 @@ $ git pull
 # 2/2/23 - Wanting to add a new local folder "MY PYTHON PROGRAMS"
 #
 ##################
-# $ git branch -M new_branch
+# $ git checkout -b new_branch
 # $ git add .
 # $ git commit -m "My local python files"
 # $ git push -u origin new_branch
@@ -209,6 +209,7 @@ $ git pull
 # 8/2/23 Scenario: 
 # Should I do github changes from a branch or main?
 #
+# $ git checkout -b new_branch
 # $ git add Git\ and\ Github.py
 # $ git commit -m "updating Giithub"
 # $ git push -u origin new_branch
@@ -230,7 +231,7 @@ $ git pull
 # 
 # ######################################## 
 # GIT FLOW using branches:
-# create the new branch
+# create the new branch and checkout to it
 # edit the file
 # commit the file
 # push it up for a PR
@@ -248,7 +249,7 @@ $ git pull
 ###########################################
 # 8/2/23
 # Should I create my commits from a branch?
-#  $ git branch -M new_branch
+#  $ git checkout -b new_branch
 #  $ git add Git\ and\ Github.py
 #  $ git commit -m "updating Giithub"
 #  $ git push -u origin new_branch
