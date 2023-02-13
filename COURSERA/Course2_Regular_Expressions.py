@@ -95,7 +95,7 @@ print(file_path)
 # PRACTICE QUIZ Questions
 #
 ############################
-#
+# use https://regex101.com/ to build pattern
 #############################
 print("Practice Question 1")
 
@@ -108,9 +108,14 @@ print("Practice Question 1")
 import re
 def check_web_address(text):
 
-  # cannot contain non alph numeric chars   
-  # must end in .com , .info , .edu , .org   
-  pattern = ___
+  # cannot contain non alpha numeric chars - first char must start with ^[a-zA-Z0-9]
+  # * , + or ?  to deal with sequences
+  # second char can be . but cannot be @ or /
+  # + requires that at least one occurrence of the preceding expression is present in the string being matched.
+  # must have one or more dots
+  # must end in .com , .info , .edu , .org   - must end in (\.com|\.org|\.US )$   ; | is like and OR operator
+  # 
+  pattern =r"^[a-zA-Z0-9]+[a-zA-Z0-9\.\-\_]*(\.com|\.org|\.US)$"
   result = re.search(pattern, text)
   return result != None
 
