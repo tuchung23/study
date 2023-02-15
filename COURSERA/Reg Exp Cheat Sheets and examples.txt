@@ -37,11 +37,11 @@ abc{2,5}    matches a string that has ab followed by 2 up to 5 c
 a(bc)*      matches a string that has a followed by zero or more copies of the sequence bc
 a(bc){2,5}  matches a string that has a followed by 2 up to 5 copies of the sequence bc
 
-
-
-
-
-
+eg.   <.+>    matches    <div>simple div</div>
+- < matches the character <
+- . matches any character (except for line terminators)
+- + matches the previous token between one and unlimited times
+- > matches the character >
 
 
 
@@ -50,7 +50,7 @@ a(bc){2,5}  matches a string that has a followed by 2 up to 5 copies of the sequ
 a(b|c)     matches a string that has a followed by b or c (and captures b or c)
 a[bc]      same as previous, but without capturing b or c
 
-
+# [] is different than ()
 
 #### Character classes — \d \w \s and .  ###################
 
@@ -58,6 +58,14 @@ a[bc]      same as previous, but without capturing b or c
 \w         matches a word character (alphanumeric character plus underscore) 
 \s         matches a whitespace character (includes tabs and line breaks)
 .          matches any character 
+
+
+
+#### Boundaries — \b and \B  #####################################
+
+\babc\b          performs a "whole words only" search
+
+\bChung\b        matches "Tu Chung" but not "TuChung"
 
 
 
@@ -70,3 +78,26 @@ In order to be taken literally, you must escape the characters ^.[$()|*+?{\with 
 
 
 
+########################################################################
+# Good examples on word boundaries
+########################################################################
+
+# "Tu is the absolute best"
+
+# \b[a-z]\w+    -> is , the , absolute , best
+## A word that contains letters a single char between a-z
+## \w matches any word character (equivalent to [a-zA-Z0-9_]) unlimited times
+
+# \b[a-z]\w     -> is  , th , ab , be
+## A word that contains a single character in the range a-z
+## \w matches any word character (equivalent to [a-zA-Z0-9_])
+
+# \b[a-z]       -> i , t , a , b
+# A word that contains letters a single char between a-z
+
+# \b[ab]\w+     -> absolute , best
+# A word that contains letters a single char that is either 'a' or 'b'
+## w matches any word character (equivalent to [a-zA-Z0-9_]) unlimited times
+
+#\b[a]\w+       -> absolute
+## find a word that starts with the letter 'a'
