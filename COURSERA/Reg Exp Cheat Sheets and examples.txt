@@ -1,0 +1,72 @@
+#############################################
+# Reg Ex Cheatsheets
+#
+#
+##############################################
+
+####  Anchors — ^ and $  ############
+
+^The        ; matches any string that starts with The
+end$        ;matches a string that ends with end
+^The end$   ;exact string match (starts and ends with The end)
+
+
+
+####  Quantifiers — * + ? and {}  ##########
+
+The quantifiers ( * + {}) are greedy operators, so they expand the match as far as they can through the provided text.
+
+
+A regex quantifier is a symbol or a character sequence that defines the number of times a character or a group of characters can appear in a regular expression. 
+Quantifiers are used to make regular expressions more concise and powerful, allowing you to match repeated patterns in text.
+
+There are several types of quantifiers in regular expressions, including:
+
+The asterisk (*) - matches zero or more occurrences of the preceding character or group of characters.
+The plus sign (+) - matches one or more occurrences of the preceding character or group of characters.
+The question mark (?) - matches zero or one occurrence of the preceding character or group of characters.
+Curly braces ({}) - allow you to specify a specific number of occurrences of the preceding character or group of characters.
+The dot (.) - matches any single character.
+
+abc*        matches a string that has ab followed by zero or more c 
+abc+        matches a string that has ab followed by one or more c
+abc?        matches a string that has ab followed by zero or one c
+abc{2}      matches a string that has ab followed by 2 c
+abc{2,}     matches a string that has ab followed by 2 or more c
+abc{2,5}    matches a string that has ab followed by 2 up to 5 c
+a(bc)*      matches a string that has a followed by zero or more copies of the sequence bc
+a(bc){2,5}  matches a string that has a followed by 2 up to 5 copies of the sequence bc
+
+
+
+
+
+
+
+
+
+#### OR operator — | or [] ###########################
+
+a(b|c)     matches a string that has a followed by b or c (and captures b or c)
+a[bc]      same as previous, but without capturing b or c
+
+
+
+#### Character classes — \d \w \s and .  ###################
+
+\d         matches a single character that is a digit 
+\w         matches a word character (alphanumeric character plus underscore) 
+\s         matches a whitespace character (includes tabs and line breaks)
+.          matches any character 
+
+
+
+#### Escape characters #############################
+In order to be taken literally, you must escape the characters ^.[$()|*+?{\with a backslash \ as they have special meaning.
+
+\$\d       matches a string that has a $ before one digit
+
+
+
+
+
