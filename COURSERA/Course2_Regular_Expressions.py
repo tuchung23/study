@@ -298,10 +298,11 @@ print("Practice Question 1")
 
 # (\d+)-(\d+)-*(\d*)   ; find first digit one or more times followed by - then one or digits followed by zero or more - with zero or more digits
 # now first (\d+)  is stored in \1 etc
+## ((\d+)-(\d+)-*(\d*))  ; capture this all in one reference group so we can easily reference it as \1
 
 import re
 def transform_record(record):
-  new_record = re.sub(r"(\d+)-(\d+)-*(\d*)", r"+1-\1-\2 (?(\3)-\3|no)", record)
+  new_record = re.sub(r"((\d+)-(\d+)-*(\d*))", r"+1-\1", record)
   return new_record
 
 print(transform_record("Sabrina Green,802-867-5309,System Administrator")) 
@@ -314,17 +315,19 @@ print(transform_record("Melody Daniels,846-687-7436,Programmer"))
 # Melody Daniels,+1-846-687-7436,Programmer
 
 print(transform_record("Charlie Rivera,698-746-3357,Web Developer")) 
-
-
-"""
-
 # Charlie Rivera,+1-698-746-3357,Web Developer
 
 print("Practice Question 2")
 # The multi_vowel_words function returns all words with 3 or more consecutive vowels (a, e, i, o, u). Fill in the regular expression to do that.
 import re
 def multi_vowel_words(text):
-  pattern = ___
+
+  # use the OR [aeiou]
+  # {3} preceeding match 3 times
+  # \w+ any word letter one or more times before and after 
+
+
+  pattern = r"\w+[aeiou]{3}\w+"
   result = re.findall(pattern, text)
   return result
 
@@ -344,6 +347,7 @@ print(multi_vowel_words("Hello world!"))
 # []
 
 
+"""
 print("Practice Question 3")
 
 # The transform_comments function converts comments in a Python script into those usable by a C compiler. 
@@ -366,7 +370,7 @@ print(transform_comments("  number += 1   # Increment the variable"))
 print(transform_comments("  return(number)")) 
 # Should be "  return(number)"
 
-
+"""
 print("Practice Question 4")
 # The convert_phone_number function checks for a U.S. phone number format: XXX-XXX-XXXX (3 digits followed by a dash, 3 more digits followed by a dash, and 4 digits), 
 # and converts it to a more formal format that looks like this: (XXX) XXX-XXXX.
@@ -374,7 +378,11 @@ print("Practice Question 4")
 
 import re
 def convert_phone_number(phone):
-  result = re.sub(___)
+
+  # match any digit 3 times  ;\d{3}
+  # match any digit 4 tims ; \d{4)}    
+  # first lot and second lot of digits can't be the same
+  result = re.sub(r"(\d+)-(\d+)-(\d+)" , r"(\1)-(?!\1\2)\2-\3", phone)
   return result
 
 print(convert_phone_number("My number is 212-345-9999.")) # My number is (212) 345-9999.
@@ -382,5 +390,3 @@ print(convert_phone_number("Please call 888-555-1234")) # Please call (888) 555-
 print(convert_phone_number("123-123-12345")) # 123-123-12345
 print(convert_phone_number("Phone number of Buckingham Palace is +44 303 123 7300")) # Phone number of Buckingham Palace is +44 303 123 7300
 
-
-"""
