@@ -347,7 +347,7 @@ print(multi_vowel_words("Hello world!"))
 # []
 
 
-"""
+
 print("Practice Question 3")
 
 # The transform_comments function converts comments in a Python script into those usable by a C compiler. 
@@ -358,7 +358,7 @@ print("Practice Question 3")
 
 import re
 def transform_comments(line_of_code):
-  result = re.sub(___)
+  result = re.sub(r"#+" , r"//" , line_of_code)
   return result
 
 print(transform_comments("### Start of program")) 
@@ -370,7 +370,7 @@ print(transform_comments("  number += 1   # Increment the variable"))
 print(transform_comments("  return(number)")) 
 # Should be "  return(number)"
 
-"""
+
 print("Practice Question 4")
 # The convert_phone_number function checks for a U.S. phone number format: XXX-XXX-XXXX (3 digits followed by a dash, 3 more digits followed by a dash, and 4 digits), 
 # and converts it to a more formal format that looks like this: (XXX) XXX-XXXX.
@@ -382,7 +382,8 @@ def convert_phone_number(phone):
   # match any digit 3 times  ;\d{3}
   # match any digit 4 tims ; \d{4)}    
   # first lot and second lot of digits can't be the same
-  result = re.sub(r"(\d+)-(\d+)-(\d+)" , r"(\1)-(?!\1\2)\2-\3", phone)
+  result = re.sub(r"(\d+)-(\d+)-(\d+)" , r"(\1)-\2-\3", phone)
+  ## replacement = r"\2 \1" if r"\1" else r"\2"
   return result
 
 print(convert_phone_number("My number is 212-345-9999.")) # My number is (212) 345-9999.
@@ -390,3 +391,8 @@ print(convert_phone_number("Please call 888-555-1234")) # Please call (888) 555-
 print(convert_phone_number("123-123-12345")) # 123-123-12345
 print(convert_phone_number("Phone number of Buckingham Palace is +44 303 123 7300")) # Phone number of Buckingham Palace is +44 303 123 7300
 
+
+# Question:
+# When capturing regex groups, what datatype does the groups method return?
+# Answer : a tuple 
+# Because a tuple is returned, we can access each index individually.
