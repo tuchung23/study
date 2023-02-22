@@ -1,4 +1,50 @@
 #######################################
 # Google Cloud STORAGE
 #
+# gsutil is Google Storage CLI tool. Equivalent to aws s3 but for the Google Cloud Platform, 
+# it allows you to access Google Cloud Storage from the command line
 ######################################
+# Command to connect using Google SDK on laptop
+# $ gcloud auth login
+# $ gcloud init   ## can use this for basic setup
+# $ gcloud config list     ## shows current properties
+# 
+####### To switch between different google accounts:  ################
+####### Remember an account can have many projects    ################
+# $ gcloud config set account <account id>   ## switch between google accounts
+# $ gcloud config set project PROJECT_ID   ## this is to switch between projects in that google account
+#
+# $ gcloud auth list          ## whoi am i logged in as
+# $ gcloud projects list       ## list my projects
+# $ gcloud config get-value project    ## what is my current project ID   
+######################################
+
+General Commands:
+
+gsutil ls: lists all your buckets
+gsutil help <topic>: help on the topic
+
+##############################################
+
+Buckets
+gsutil mb gs://<bucket_name>: creates the gs://bucket_name1.
+
+gsutil rb gs://<bucket_name>: deletes the bucket.
+
+gsutil ls gs://<bucket_name>: lists the files in the bucket
+
+##############################################
+
+Files
+gsutil cp <filename> gs://<bucket_name>/: copies the local filename into the bucket ****.
+
+gsutil cp <filename> gs://<bucket_name>/directory/: copies the local filename into the directory ****2.
+
+gsutil mv <src_filename> gs://<bucket_name>/directory/<tgt_filename>: moves the local src_filename to the directory and renames it as tgt_filename
+
+gsutil rm gs://<bucket_name>/file_or_dir: deletes the file_or_dir object.
+
+#############################################
+
+Folder
+gsutil cp <filename> gs://<bucket_name>/: copies the local filename into the bucket ****.
