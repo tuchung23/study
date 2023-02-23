@@ -5,7 +5,7 @@
 # that supports MySQL, PostgreSQL, and SQL Server.
 #################################
 
-Enter the following commands to create a Cloud SQL instance:
+Enter the following commands to create a Cloud SQL instance in UI shell or Google cloud CLI:
 
 
 ########### Create database ##################################
