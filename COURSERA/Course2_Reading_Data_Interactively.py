@@ -27,7 +27,7 @@
 ## Define a variable
 # export FRUIT=Pineapple
 
-## Command line arguments
+## Command line arguments ###################
 # The list of arguments are stored in the sys module
 
 ## exit status/return code
@@ -42,6 +42,7 @@ import os
 import sys
 
 filename=sys.argv[1]
+# get the first argument
 
 if not os.path.exists(filename):
     with open(filename, "w") as f:
@@ -118,3 +119,87 @@ import subprocess
 # What does the copy method of os.environ do? Creates a new dictionary of environment variables
 # The copy method of os.environ makes a new copy of the dictionary containing the environment variables, making modification easier.
 
+
+
+########################################################################
+# Filtering Log Files with Regular expressions
+#
+#
+########################################################################
+
+# For performance reasons, when files are large, it's generally a good practice to read them line by line instead of 
+# loading the entire contents into memory.
+
+import sys
+
+# logfile=sys.argv[1]
+# with open(logfile) as f:
+#    for line in f:
+#        print(line.strip())
+        # For each line, the code strips the newline character at the end using the "strip" function and prints the resulting string to the console.
+
+# it takes an argument like:
+# python read_log.py logfile.txt
+
+########################################################################################
+########################################################################################
+# Logfile QWIKLABS LAB
+# In the /data directory, there's a file named fishy.log, which contains the system log. Log entries are written in this format:
+#
+# Month Day hour:minute:second mycomputername "process_name"["random 5 digit number"] "ERROR/INFO/WARN" "Error description"
+#
+# In this lab, we'll search for the CRON error that failed to start. To do this, we'll use a python script to search log files for a particular type of ERROR log. 
+# In this case, we'll search for a CRON error within the fishy.log file that failed to start by narrowing our search to "CRON ERROR Failed to start".
+#
+########################################################################################
+########################################################################################
+########################################################################################
+
+# Use c:\temp\fishy.txt as 1st argument
+
+
+#!/usr/bin/env python3
+import sys
+#system subprocesses
+import os
+# read and write files
+import re
+# regular expressions
+
+def error_search(log_file):
+  # define the error string we want to search for  
+  error = input("What is the error? ")
+  returned_errors = []
+
+  # open file to read in UTF-8 format
+  # remember reading line by line is optimal
+  with open(log_file, mode='r',encoding='UTF-8') as file:
+    for log in  file.readlines():
+      # create error_patterns list to store all the user input patterns that will be searched  
+      error_patterns = ["error"]
+      for i in range(len(error.split(' '))):
+        error_patterns.append(r"{}".format(error.split(' ')[i].lower()))
+
+      # Now, let's use the search() method (present in re module) to check whether the file fishy.log has the user defined pattern 
+      # and, if it is available, append them to the list returned_errors.  
+      if all(re.search(error_pattern, log.lower()) for error_pattern in error_patterns):
+        returned_errors.append(log)
+    # Next, close the file fishy.log and return the results stored in the list returned_errors.    
+    file.close()
+  return returned_errors
+
+
+  
+def file_output(returned_errors):
+  with open('c:\\temp\\errors_found.log', 'w') as file:
+    for error in returned_errors:
+      file.write(error)
+    file.close()
+
+# define the main function
+if __name__ == "__main__":
+  log_file = sys.argv[1]
+  returned_errors = error_search(log_file)
+  file_output(returned_errors)
+  # sys.exit(0) is used to exit from Python
+  sys.exit(0)
