@@ -10,7 +10,7 @@
 # It's the best!!!!
 ###################################
 # re.search()  ; searches for the first occurrence of a pattern in a string and returns a match
-# re.findall() ; finds all instances
+# re.findall() ; finds all instances and puts it in a LIST as a string
 ####################################
 
 # Here's a simple example that uses the re.search() method to search for a pattern in a string:
