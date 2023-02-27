@@ -157,7 +157,7 @@ import sys
 
 # Use c:\temp\fishy.txt as 1st argument
 
-
+"""
 #!/usr/bin/env python3
 import sys
 #system subprocesses
@@ -203,3 +203,6 @@ if __name__ == "__main__":
   file_output(returned_errors)
   # sys.exit(0) is used to exit from Python
   sys.exit(0)
+
+"""
+
