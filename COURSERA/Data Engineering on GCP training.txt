@@ -1,0 +1,398 @@
+###################################
+# Data Engineering on GCP
+# GITHUB for this course: https://github.com/GoogleCloudPlatform/training-data-analyst
+####################################
+
+
+Cloud storage is similar to S3
+
+Data Processing:
+- Data Proc (managed hadoop spark,Batch solution elastic map reduce in AWS )
+- DataFlow (similar to AWS glue, uses Apache Beam)
+
+Streaming Data Processing 
+- Pub Sub
+- Data Flow
+- Big Query
+
+
+DATA LAKE = natural/raw format (Cloud Storage)
+DATA WAREHOUSE = structured for analytics
+
+################# BIG Query is Googles datawarehouse solution  ############
+- batch and streaming needs
+- has machine learning engine built in (Big Query ML)
+- BI Engine AVAILABLE for dashboard performance   
+- serverless
+- data stored in columnar format 
+- snowflake only one similar to Big Query design
+- Big Query organizes data tables into units called datasets ( project -> dataset -> table )
+- Access control to run a query is via IAM 
+- MVs get refreshed and are good for performance as opposed to standard views
+- most common way to get data into Big Query is via Cloud Storage 
+
+
+####
+LAB:
+Loading Data into Big Query
+
+BigQuery is Google's fully managed, NoOps, low cost analytics database. 
+With BigQuery you can query terabytes and terabytes of data without having any infrastructure to manage or needing a database administrator. 
+BigQuery uses SQL and can take advantage of the pay-as-you-go model. BigQuery allows you to focus on analyzing data to find meaningful insights.
+
+In this lab you will ingest subsets of the NYC taxi trips data into tables inside of BigQuery.
+####
+
+SELECT count(*) as tu FROM `qwiklabs-gcp-01-2dc21e7ae218.nyctaxi.2018trips` 
+highlight 2018trips and click query
+
+
+>> Ingest a new dataset from a CSV
+
+- In the BigQuery Console, Select the nyctaxi dataset then click Create Table
+- Create table from: Upload
+- Choose File: select the file you downloaded locally earlier
+- File format: CSV
+- Table name: 2018trips Leave all other settings at default.
+- Check Auto Detect 
+- leave default advanced options
+- click CREATE TABLE
+
+
+To see how many rows are in the table:
+
+# highlight 2018trips and click query
+SELECT count(*) as tu FROM `qwiklabs-gcp-01-2dc21e7ae218.nyctaxi.2018trips` 
+
+
+>> n the Query Editor, write a query to list the top 5 most expensive trips of the year:
+
+#standardSQL
+SELECT
+  *
+FROM
+  nyctaxi.2018trips
+ORDER BY
+  fare_amount DESC
+LIMIT  5
+
+
+>>>>>>>>>>>>>  Ingest a new dataset from Google Cloud Storage   <<<<<<<<<<<<<<<<<<<<<<<<
+
+# activate cloud shell and run
+
+bq load \
+--source_format=CSV \
+--autodetect \
+--noreplace  \
+nyctaxi.2018trips \
+gs://cloud-training/OCBL013/nyc_tlc_yellow_trips_2018_subset_2.csv
+
+
+# running the row count again the figure is now double
+SELECT count(*) as tu FROM `qwiklabs-gcp-01-2dc21e7ae218.nyctaxi.2018trips` 
+
+
+>>>>>>>>>>  Create tables from other tables with DDL  <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# Run this in Big Query Query Editor
+
+#standardSQL
+CREATE TABLE
+  nyctaxi.january_trips AS
+SELECT
+  *
+FROM
+  nyctaxi.2018trips
+WHERE
+  EXTRACT(Month
+  FROM
+    pickup_datetime)=1;
+
+
+
+>> Now run the below query in your Query Editor find the longest distance traveled in the month of January:
+
+
+#standardSQL
+SELECT
+  *
+FROM
+  nyctaxi.january_trips
+ORDER BY
+  trip_distance DESC
+LIMIT
+  1
+
+
+
+####
+LAB:
+Loading semi-structured JSON into BigQuery
+
+
+
+That process is called normalization (going from one table to many)
+
+For data warehousing, data analysts often go the reverse direction (denormalization) and bring many separate tables into one large reporting table.
+
+What are some potential issues if you stored all your data in one giant table?
+The table row size could be too large for traditional reporting databases
+
+Now, you're going to learn a different approach that stores data at different levels of granularity all in one table using repeated fields:
+
+Data in an array [ ] must all be the same type
+Arrays can only share one data type (all strings, all numbers).
+
+
+>>>>>>>>>>> Loading semi-structured JSON into BigQuery
+What if you had a JSON file that you needed to ingest into BigQuery?   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+Recap:
+
+BigQuery natively supports arrays
+Array values must share a data type
+Arrays are called REPEATED fields in BigQuery
+
+
+
+
+Recap:
+
+You can do some pretty useful things with arrays like:
+
+Finding the number of elements with ARRAY_LENGTH(<array>)
+Deduplicating elements with ARRAY_AGG(DISTINCT <field>)
+Ordering elements with ARRAY_AGG(<field> ORDER BY <field>)
+Limiting ARRAY_AGG(<field> LIMIT 5)
+
+
+recap:
+
+Structs are containers that can have multiple field names and data types nested inside.
+
+Arrays can be one of the field types inside of a Struct (as shown above with the splits field).
+
+
+
+Recap of STRUCTs:
+
+A SQL STRUCT is simply a container of other data fields which can be of different data types. The word struct means data structure. Recall the example from earlier:
+
+__STRUCT(__"Rudisha" as name, [23.4, 26.3, 26.4, 26.1] as splits__)__AS runner
+
+STRUCTs are given an alias (like runner above) and can conceptually be thought of as a table inside of your main table.
+
+STRUCTs (and ARRAYs) must be unpacked before you can operate over their elements. Wrap an UNNEST() around the name of the struct itself or the struct field that is an array in order to unpack and flatten it.
+
+
+
+
+#############################################################################################################################
+#############################################################################################################################
+#############################################################################################################################
+
+
+############## Cloud SQL is a fully managed SQL server, postgres or mysql for your relational RDBMS ####################
+- fully managed server
+
+####
+LAB:
+Loading Taxi Data into Google Cloud SQL 2.5
+####
+
+ACTIVATE Gcloud shell to create Cloud SQL instance
+# shell located top right hand corner
+
+$ gcloud sql instances create taxi \
+    --tier=db-n1-standard-1 --activation-policy=ALWAYS
+
+
+>> Set root password
+
+$ gcloud sql users set-password root --host % --instance taxi \
+ --password Passw0rd
+
+>> Now create an environment variable with the IP address of the Cloud Shell:
+
+$ export ADDRESS=$(wget -qO - http://ipecho.net/plain)/32
+
+>> Whitelist the Cloud Shell instance for management access to your SQL instance:
+
+$ gcloud sql instances patch taxi --authorized-networks $ADDRESS
+
+>> Get the IP address of your Cloud SQL instance by running:
+
+$ MYSQLIP=$(gcloud sql instances describe \
+taxi --format="value(ipAddresses.ipAddress)")
+
+>> Check the variable MYSQLIP:
+
+$ echo $MYSQLIP
+
+>> Create the taxi trips table by logging into the mysql command line interface:
+
+$ mysql --host=$MYSQLIP --user=root \
+      --password --verbose
+
+>> Paste the following content into the command line to create the schema for the trips table:  
+
+$ create database if not exists bts;
+use bts;
+drop table if exists trips;
+create table trips (
+  vendor_id VARCHAR(16),		
+  pickup_datetime DATETIME,
+  dropoff_datetime DATETIME,
+  passenger_count INT,
+  trip_distance FLOAT,
+  rate_code VARCHAR(16),
+  store_and_fwd_flag VARCHAR(16),
+  payment_type VARCHAR(16),
+  fare_amount FLOAT,
+  extra FLOAT,
+  mta_tax FLOAT,
+  tip_amount FLOAT,
+  tolls_amount FLOAT,
+  imp_surcharge FLOAT,
+  total_amount FLOAT,
+  pickup_location_id VARCHAR(16),
+  dropoff_location_id VARCHAR(16)
+);
+
+>> In the mysql command line interface check the import by entering the following commands:
+
+$ describe trips;
+
+>> Query the trips table:
+
+$ select distinct(pickup_location_id) from trips;
+
+$ exit
+
+>>>>>>>>>>>>>>>  Add data to Cloud SQL instance  <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+>> Now you'll copy the New York City taxi trips CSV files stored on Cloud Storage locally
+
+$ gsutil cp gs://cloud-training/OCBL013/nyc_tlc_yellow_trips_2018_subset_1.csv trips.csv-1
+gsutil cp gs://cloud-training/OCBL013/nyc_tlc_yellow_trips_2018_subset_2.csv trips.csv-2
+
+>> Connect to the mysql interactive console to load local infile data:
+
+$ mysql --host=$MYSQLIP --user=root  --password  --local-infile
+
+>> In the mysql interactive console select the database
+
+$ use bts;
+
+>> Load the local CSV file data using local-infile:
+
+$ LOAD DATA LOCAL INFILE 'trips.csv-1' INTO TABLE trips
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(vendor_id,pickup_datetime,dropoff_datetime,passenger_count,trip_distance,rate_code,store_and_fwd_flag,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,imp_surcharge,total_amount,pickup_location_id,dropoff_location_id);
+
+$ LOAD DATA LOCAL INFILE 'trips.csv-2' INTO TABLE trips
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(vendor_id,pickup_datetime,dropoff_datetime,passenger_count,trip_distance,rate_code,store_and_fwd_flag,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,imp_surcharge,total_amount,pickup_location_id,dropoff_location_id);
+
+>>>>>>>>>>> Checking for data integrity <<<<<<<<<<<<<<<<<<<<<<<<
+
+>> Query the trips table for unique pickup location regions:
+
+$ select distinct(pickup_location_id) from trips;
+# should return 159 unique ids
+
+
+$ select
+  max(trip_distance),
+  min(trip_distance)
+from
+  trips;
+
+>> How many trips in the dataset have a trip distance of 0?
+
+$ select count(*) from trips where trip_distance = 0;
+
+>> Finally, let's investigate the payment_type column.
+
+$ select
+  payment_type,
+  count(*)
+from
+  trips
+group by
+  payment_type;
+
+# Payment type = 1 has 13863 rows
+# Payment type = 2 has 6016 rows
+# Payment type = 3 has 113 rows
+# Payment type = 4 has 32 rows 
+
+$ exit
+
+
+
+#############################################################################################################################
+#############################################################################################################################
+#############################################################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############## Cloud Composer (managed Apache Airflow ) #################################
+
+
+
+############# Cloud Storage(GCS) ##################################################
+- uses Buckets
+- Similar to AWS S3
+- simulates a file system
+- GSUTIL
+- IAM(identity access manager) and access lists for security
+- CMEK (customer managed encryption keys)
+- use to store RAW data like in a data lake  
+
+
+
+
+
+#############################################################################################################################
+#############################################################################################################################
+#############################################################################################################################
+
+
+############## BUILD ETL PIPELINES ####################
+>>>>>>> DATAPROC (aka SPARK - processing large datasets <<<<<<<<<<<
+- managed service for batch processing
+Use cloud storage instead of HDFS with Data Proc
+
+
+
+>>>>>>> DATA FLOW (apache beam) <<<<<<<<<<<
+
+
+### SPARK and BEAM are quite similar
+
+
+
+>>>>>>> DATA FUSION <<<<<<<<<<<
+- Build pipelines visually
+- allows to then export as code
