@@ -40,7 +40,7 @@
 # assertFalse(x)  checks bool(x) is False
 
 
-
+"""
 print("Example 1")
 import unittest
 
@@ -60,7 +60,7 @@ class TestAddNumbers(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-
+"""
 
 
 # In this example, we have a function add_numbers that takes two numbers as input and returns their sum. 
@@ -281,11 +281,114 @@ may encounter issues.
 
 
 
+###########################
+# Jupyter lab
+#
+#
+############################
+
+my_list = [27, 5, 9, 6, 8]
+
+#  a function that removes an item from an input list
+def RemoveValue(myVal):
+    my_list.remove(myVal)
+    return my_list
+
+print(RemoveValue(27))
+
+# returns [5,9,6,8]
+
+
+# Fill in the blanks below to raise a ValueError in the RemoveValue() function if a value is not in the list. 
+# You can have the error message say something obvious like "Value must be in the given list".
+def RemoveValue(myVal):
+    if myVal not in my_list:
+        print("Value must be in the list already")
+        return my_list
+    else:
+        my_list.remove(myVal)
+    return my_list
+
+print(RemoveValue(27))
+
+# Below we have a function that sorts an input list alphabetically
+
+my_word_list = ['east', 'after', 'up', 'over', 'inside']
+
+def OrganizeList(myList):
+    myList.sort()
+    return myList
+
+print(OrganizeList(my_word_list))
+# returns ['after', 'east', 'inside', 'over', 'up']
+
+
+# this below will error as OrganizeList() function makes sense for lists that are filled with only strings
+# only "12" is a string 
+# my_new_list = [6, 3, 8, "12", 42]  
+my_new_list = ["6", "3", "8", "12"]
+# print(OrganizeList(my_new_list))
+
+
+# add an assert type argument that verifies whether the input list is filled with only strings
+
+## Method #1 : Using isinstance(x, str)
+# This method can be used to test whether any variable is a particular datatype. 
+# By giving the second argument as “str”, we can check if the variable we pass is a string or not
+
+def OrganizeList(myList):
+    for item in myList:
+        assert isinstance(item,str) , "This is not a string"
+    myList.sort()
+    return myList
+
+print(OrganizeList(my_new_list))
+
+# he Guess() function below takes a list of participants, assigns each a random number from 1 to 9, and stores this information in a dictionary 
+# with the participant name as the key. 
+# It then returns True if Larry was assigned the number 9 and False if this was not the case
+
+import random
+
+participants = ['Jack','Jill','Larry','Tom']
+
+def Guess(participants):
+    my_participant_dict = {}
+    for participant in participants:
+        my_participant_dict[participant] = random.randint(1, 9)
+    if my_participant_dict['Larry'] == 9:
+        return True
+    else:
+        return False
+    
+print(Guess(participants))
+
+# The code seems to be working fine. However, there are some things that could go wrong, so find the part that might throw an exception and wrap it in a 
+# try-except block to ensure that you get sensible behavior. 
+# Do this in the cell below. Code your function to return None if an exception occurs
+# Revised Guess() function
+def Guess(participants):
+    my_participant_dict = {}
+    for participant in participants:
+        my_participant_dict[participant] = random.randint(1, 9)
+    if my_participant_dict['Larry'] == 9:
+        return True
+    else:
+        return False
+
+participants = ['Cathy','Fred','Jack','Tom']
+print(Guess(participants))        
 
 
 
 
+print("Try except example!!!!!!!!!!!!!")
 
-
-
-
+try:
+    x = int(input("Please enter a number: "))
+    result = 10 / x
+    print("The result is:", result)
+except ZeroDivisionError:
+    print("You cannot divide by zero.")
+except ValueError:
+    print("That was not a valid number.")
