@@ -1,0 +1,214 @@
+##############################
+# BASH SCRIPTING
+#
+##############################
+
+## redirecting streams ####
+# Redirection is the process of sending a stream to a different destination
+# use >  to redirect  ; >> to append
+# use < to read input from a file instead of keyboard
+# redirerect error output using 2>error_file.txt  , so it appears in file instead of screen
+
+## pipes and pipelines ####
+# pipes connect the output of one program to the input of another in order to pass data between
+# the programs
+# eg. input_text | ./program.py
+
+## Signals ###
+# tokens delivered to running processes to indicate a desired action
+
+# CTRL-C -> sigint ; This sends a SIGINT signal to the program to stop processing cleanly
+# CTRL-Z  -> sigstop
+# kill -> sigterm , terminate
+
+
+
+###############
+# Basic commands
+###############
+
+
+
+chown user files: changes the owner of the files to the given user
+
+chgrp group files: changes the group of the files to the given group
+
+## Operating with the content of files ##
+cat file: shows the content of the file through standard output
+
+wc file: counts the amount of characters, words, and lines in the given file; can also count the same values of whatever it receives via stdin
+
+file file: prints the type of the given file, as recognized by the operating system
+
+head file: shows the first 10 lines of the given file
+
+tail file: shows the last 10 lines of the given file
+
+less file: scrolls through the contents of the given file (press "q" to quit)
+
+sort file: sorts the lines of the file alphabetically
+
+cut -dseparator -ffields file: for each line in the given file, splits the line according to the given separator and prints the given fields (starting from 1)
+
+## Additional commands ##
+echo "message": prints the message to standard output
+
+date: prints the current date
+
+who: prints the list of users currently logged into the computer
+
+man command: shows the manual page of the given command; manual pages contain a lot of information explaining how to use each command (press "q" to quit)
+
+uptime: shows how long the computer has been running
+
+free: shows the amount of unused memory on the current system  
+
+####################
+# Redirections , Pipes and Signals
+#
+####################
+
+## Managing streams ##
+These are the redirectors that we can use to take control of the streams of our programs
+
+command > file: redirects standard output, overwrites file
+
+command >> file: redirects standard output, appends to file
+
+command < file: redirects standard input from file
+
+command 2> file: redirects standard error to file
+
+command1 | command2: connects the output of command1 to the input of command2
+
+## Operating with processes ##
+These are some commands that are useful to know in Linux when interacting with processes. Not all of them are explained in videos, so feel free to investigate them on your own.
+
+ps: lists the processes executing in the current terminal for the current user
+
+ps ax: lists all processes currently executing for all users  
+
+ps e: shows the environment for the processes listed  
+
+kill PID: sends the SIGTERM signal to the process identified by PID
+
+fg: causes a job that was stopped or in the background to return to the foreground
+
+bg: causes a job that was stopped to go to the background
+
+jobs: lists the jobs currently running or stopped
+
+top: shows the processes currently using the most CPU time (press "q" to quit)  
+
+
+###################################
+# Creating BASH scripts
+#
+###################################
+
+# bash is the most commonly used shell on Linux. Bash is not only the interpreter that runs our commands, it's also a scripting language
+# it has the .sh extension
+
+## variables ##
+example=hello
+echo $example
+
+## GLOBS ##
+Globs are characters that allow us to create list of files. The star and question mark are the most common globs
+
+## conditional exection ########
+# IF #
+# if [condition]; then
+# else
+# fi
+
+
+
+
+#!/bin/bash
+
+if grep "127.0.0.1" /etc/host; then 
+    echo "Everything OK"
+else    
+    echo "ERROR! 127.0.0.1 is not in /etc/hosts"
+fi     
+
+
+## TEST command ##
+Test is a command that evaluates the conditions received and exits with zero when they are true and with one when they're false
+
+$ if test -n "$PATH"; then echo "Your path is not empty"; fi 
+
+## WHILE loops #### 
+#  while [condition]; do
+#  done
+#
+
+example:
+while [ $n -le 9 ]; do
+
+# le is less than or equal to
+# lt is larger than
+# ge is greater or equal to
+etc
+
+
+## FOR loops ###
+# for [condition]; do
+# done
+#
+
+Example:
+for fruit in peach orange apple; do
+     echo "I like $fruit!"
+done
+
+
+Example script to rename files with .HTM to .htm:
+
+for file in *.HTM; do   
+    name=$(basename "$file" .HTM)
+    #basename is a built in command that strips the extension
+    echo mv "$file" "$name.html"
+    # adding echo is good test before doing actually commands on files
+done
+
+
+
+## Arguments in BASH ##
+# $1 $2 etc
+
+
+## Advanced command interaction ###################
+#
+####################################################
+# CUT command
+
+Example file is data.txt containing:
+John,Smith,25,555-1234
+Jane,Doe,30,555-5678
+Bob,Johnson,40,555-9012
+
+You can use cut to extract specific fields from each line of the file
+
+For example, if you only want to extract the first and last names, you can use the following command:
+
+$ cut -d ',' -f 1,2 data.txt
+
+-d ',': the delimiter is set to a comma
+-f 1,2: the fields you want to extract are 1 (the first name) and 2 (the last name)
+data.txt: the file you want to extract the fields from
+
+
+###############################################
+# Choosing between bash and python
+#
+###############################################
+# it's a good idea to choose bash when we're operating with files and system commands, as long as what we're doing is simple enough 
+# that the script is self-explanatory. 
+# As soon as it becomes hard to understand what the script is doing, it's better to write it in a more general scripting language like Python. 
+# Bash scripts aren't as flexible or robust as having entire Python language available, with its many functions to operate on strings, lists, and dictionaries.
+
+# if your code is complex or it needs to work across platforms, you might be better off using the Python standard library or other external 
+# modules that provide the same functionality.
+
