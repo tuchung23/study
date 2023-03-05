@@ -369,12 +369,20 @@ print(Guess(participants))
 # Revised Guess() function
 def Guess(participants):
     my_participant_dict = {}
+    # ensure participant exists in the list
+        
     for participant in participants:
         my_participant_dict[participant] = random.randint(1, 9)
-    if my_participant_dict['Larry'] == 9:
-        return True
-    else:
-        return False
+        
+    try:    
+        if my_participant_dict['Larry'] == 9:
+            return True
+        else:
+            return False
+
+    # is the except function name standard? If i call it anything other than exception        
+    except Exception:
+        print("None")
 
 participants = ['Cathy','Fred','Jack','Tom']
 print(Guess(participants))        
@@ -382,13 +390,3 @@ print(Guess(participants))
 
 
 
-print("Try except example!!!!!!!!!!!!!")
-
-try:
-    x = int(input("Please enter a number: "))
-    result = 10 / x
-    print("The result is:", result)
-except ZeroDivisionError:
-    print("You cannot divide by zero.")
-except ValueError:
-    print("That was not a valid number.")
