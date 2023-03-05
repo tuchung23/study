@@ -212,3 +212,35 @@ data.txt: the file you want to extract the fields from
 # if your code is complex or it needs to work across platforms, you might be better off using the Python standard library or other external 
 # modules that provide the same functionality.
 
+###########################################
+# QWIKLABS
+#
+###########################################
+# In this lab, you'll change the username of your coworker Jane Doe from "jane" to "jdoe" in compliance with company's naming policy. 
+# The username change has already been done. However, some files that were named with Jane's previous username "jane" haven't been updated yet. 
+# To help with this, you'll write a bash script and a Python script that will take care of the necessary rename operations.
+
+Example "list.txt" file:
+001 janes /data/jane_profile_07272018.doc
+
+Samples to help with this project:
+
+GREP and CUT:
+$ grep " jane " .list.txt | cut -d ' ' -f 2
+
+TEST expression:
+# -e flag checks if a file exitss
+$ if test -e ~/data/jane_profile_07272018.doc; then echo "File exists"; else echo "File doesn't exist"; fi
+
+CREATE empty file
+$ touch new_file.txt
+OR
+$ > new_file.txt
+
+ITERATION:
+$ for i in 1 2 3; do echo $i; done
+
+### Task ###########
+# oldFiles.txt file should save files with username "jane" into a variable called "files"
+
+files = grep "jane" *
