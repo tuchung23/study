@@ -229,7 +229,7 @@ GREP and CUT:
 $ grep " jane " .list.txt | cut -d ' ' -f 2
 
 TEST expression:
-# -e flag checks if a file exitss
+# -e flag checks if a file exists
 $ if test -e ~/data/jane_profile_07272018.doc; then echo "File exists"; else echo "File doesn't exist"; fi
 
 CREATE empty file
@@ -240,7 +240,116 @@ $ > new_file.txt
 ITERATION:
 $ for i in 1 2 3; do echo $i; done
 
-### Task ###########
+### Task 1 ###########
 # oldFiles.txt file should save files with username "jane" into a variable called "files"
 
-files = grep "jane" *
+$ file=grep " jane " ../data/list.txt | cut -d ' ' -f 3
+
+
+### Task 2 ###########
+#  check if file names present in files variable are actually present in the file system using test Command
+
+$ if test -e $file; then echo "File exists"; else echo "File doesn't exist"; fi
+
+
+### Task 3 ############
+# In this section, you are going to write a Python script, changeJane.py, that takes oldFiles.txt as a command line 
+argument and then renames files with the new username "jdoe". You will be completing the script, but we will guide throughout the section.
+
+# Since oldFiles.txt is passed as a command line argument, it's stored in the variable sys.argv[1]. Open the file from the first argument to 
+read its contents using open() method. You can either assign it to a variable or use a with block. 
+Hint: traverse each line in the file using readlines() method. Use line.strip() to remove any whitespaces or newlines and fetch the old name.
+
+
+########################################################
+# oldfiles.txt should contain:
+/data/jane_profile_07272018.doc
+/data/jane_contact_07292018.csv
+##########################################################
+findjane.sh:
+
+#!/bin/bash
+> oldFiles.txt   
+file=`grep " jane " ../data/list.txt | cut -d ' ' -f 3`
+
+#iterate through the $file variable
+for line in $file  ; do
+    if test -e ~/$line;then
+        echo $line >> oldFiles.txt
+    fi 
+done    
+
+
+############################################################
+
+
+
+
+##############################################################
+# Use Python to rename the files
+
+#!/usr/bin/env python3
+import sys
+import subprocess
+
+## task 4 ####
+# open oldfile.txt for reading as first argument
+
+
+with open(sys.argv[1], 'r') as file:
+    rows=file.readlines()
+    for row in rows:
+        original_string=row.strip()
+        new_string=original_string.replace("jane","jdoe")
+
+# Once you have the old name, use replace() function to replace "jane" with "jdoe". This method replaces occurrences of any older substring with the new substring. 
+The old and new substrings are passed as parameters to the function. 
+Therefore, it returns a string where all occurrences of the old substring is replaced with the new substring.
+
+$ string.replace(old_substring, new_substring)
+
+eg. 
+original_string = "Hello, world!"
+new_string = original_string.replace("world", "python")
+print(new_string)
+
+
+
+## Now, invoke a subprocess by calling run() function. This function takes arguments used to launch the process. These arguments may be a list or a string.
+# You should pass a list consisting of the mv command, followed by the variable storing the old name and new name respectively to the run() function 
+# within the subprocess module
+
+$ subprocess.run(['mv' , original_string , new_string ], capture_output=True)
+$ file.close()
+
+
+## Run the script and pass the file oldFiles.txt as a command line argument.
+
+$ ./changeJane.py oldFiles.txt
+
+#################################################################
+changeJane.py
+#################################################################
+with open(sys.argv[1]) as file:
+    rows=file.readlines()
+    for row in rows:
+        original_string=row.strip()
+        new_string=original_string.replace("jane","jdoe")
+        new_string=new_string.strip()
+
+# subprocess runs unix like shell commands
+# qwiklabs didnt require the captureoutput
+subprocess.run(['mv' , original_string , new_string ], capture_output=True)
+file.close()
+
+
+#################################################################
+
+
+
+
+
+
+
+
+
